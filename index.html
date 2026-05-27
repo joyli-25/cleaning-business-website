@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Humble Hands Pros – Professional Cleaning Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F3EE;
+      --warm-white: #FDFAF7;
+      --navy: #1B2A3B;
+      --gold: #C8974A;
+      --gold-light: #E8B86D;
+      --soft-brown: #8B6F5E;
+      --text: #2C2C2C;
+      --muted: #7A7A7A;
+      --border: rgba(27,42,59,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6vw;
+      background: rgba(253,250,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .nav-logo img {
+      width: 52px; height: 52px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--gold);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--navy); line-height: 1.1;
+    }
+    .nav-brand span { color: var(--gold); display: block; font-size: 0.72rem; font-family: 'DM Sans', sans-serif; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--navy); font-size: 0.88rem;
+      font-weight: 500; letter-spacing: 0.04em;
+      position: relative; padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px;
+      background: var(--gold); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--navy); color: var(--warm-white) !important;
+      padding: 0.55rem 1.4rem; border-radius: 50px;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6vw 4vw 6vw 8vw;
+      position: relative;
+    }
+    .hero-left::before {
+      content: '';
+      position: absolute; top: 10%; left: 5%;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,151,74,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(200,151,74,0.12); border: 1px solid rgba(200,151,74,0.3);
+      color: var(--gold); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 50px;
+      margin-bottom: 1.8rem; width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: '✦'; font-size: 0.65rem; }
+
+    h1.hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 900; line-height: 1.08;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    h1.hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.7;
+      color: var(--muted); max-width: 420px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--navy); color: var(--warm-white);
+      padding: 0.9rem 2rem; border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 4px 20px rgba(27,42,59,0.2);
+    }
+    .btn-primary:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,151,74,0.35); }
+    .btn-secondary {
+      border: 1.5px solid var(--border); color: var(--navy);
+      padding: 0.9rem 2rem; border-radius: 50px;
+      text-decoration: none; font-weight: 500; font-size: 0.9rem;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); background: rgba(200,151,74,0.06); }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--navy);
+    }
+    .stat-num span { color: var(--gold); }
+    .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-top: 0.1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* Hero right – photo mosaic */
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 4px;
+    }
+    .hero-right::before {
+      content: ''; position: absolute;
+      inset: 0; z-index: 1;
+      background: linear-gradient(135deg, transparent 60%, rgba(27,42,59,0.06) 100%);
+    }
+    .mosaic-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .mosaic-img:hover { transform: scale(1.04); }
+    .mosaic-tall {
+      grid-row: span 2;
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      background: var(--navy); color: var(--warm-white);
+      padding: 0.85rem 0; overflow: hidden;
+    }
+    .marquee-inner {
+      display: flex; gap: 3rem;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 500; white-space: nowrap; opacity: 0.85;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .marquee-item::after { content: '✦'; color: var(--gold); font-size: 0.6rem; }
+
+    /* ── SERVICES ── */
+    #services {
+      padding: 7rem 8vw;
+      background: var(--warm-white);
+    }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900; color: var(--navy); line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1rem; max-width: 480px; line-height: 1.7;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+    }
+    .service-card {
+      background: var(--warm-white); padding: 2.5rem 2rem;
+      transition: background 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .service-card:hover { background: var(--cream); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      font-size: 2rem; margin-bottom: 1rem;
+      display: block;
+    }
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.6rem;
+    }
+    .service-desc {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.65;
+    }
+
+    /* ── WORK / GALLERY ── */
+    #work {
+      padding: 7rem 8vw;
+      background: var(--cream);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 10px;
+      margin-top: 3rem;
+      border-radius: 20px; overflow: hidden;
+    }
+    .gallery-item { overflow: hidden; position: relative; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(27,42,59,0.5) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 1.2rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: white; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ── WHY US ── */
+    #why {
+      padding: 7rem 8vw;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center;
+    }
+    .why-img-wrap {
+      position: relative;
+    }
+    .why-img-wrap img {
+      width: 100%; border-radius: 20px; object-fit: cover;
+      aspect-ratio: 4/5;
+      box-shadow: 20px 20px 60px rgba(27,42,59,0.15);
+    }
+    .why-badge-float {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--gold); color: var(--navy);
+      padding: 1.2rem 1.5rem; border-radius: 16px;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 10px 30px rgba(200,151,74,0.35);
+      text-align: center;
+    }
+    .why-badge-float .big-num {
+      font-size: 2rem; font-weight: 900; line-height: 1; display: block;
+    }
+    .why-badge-float .small-txt {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; opacity: 0.85;
+    }
+
+    .why-content {}
+    .promise-list { list-style: none; margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .promise-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .promise-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(200,151,74,0.12); color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .promise-title { font-weight: 600; color: var(--navy); font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .promise-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: var(--navy);
+      padding: 7rem 8vw;
+      position: relative; overflow: hidden;
+    }
+    #testimonials::before {
+      content: '"';
+      position: absolute; top: -2rem; left: 5vw;
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem; font-weight: 900;
+      color: rgba(200,151,74,0.06); line-height: 1;
+      pointer-events: none;
+    }
+    #testimonials .section-label { color: var(--gold-light); }
+    #testimonials .section-title { color: var(--warm-white); }
+
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 2rem;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .testimonial-card:hover {
+      background: rgba(255,255,255,0.09);
+      transform: translateY(-4px);
+    }
+    .stars { color: var(--gold-light); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .testimonial-text {
+      color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.7;
+      margin-bottom: 1.5rem; font-style: italic;
+    }
+    .testimonial-author { font-weight: 600; color: var(--warm-white); font-size: 0.85rem; }
+    .testimonial-loc { color: rgba(255,255,255,0.4); font-size: 0.75rem; margin-top: 0.2rem; }
+
+    /* ── CONTACT / CTA ── */
+    #contact {
+      padding: 7rem 8vw;
+      background: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .contact-form-wrap {
+      background: var(--warm-white); border-radius: 24px;
+      padding: 2.5rem; border: 1.5px solid var(--border);
+      box-shadow: 0 8px 40px rgba(27,42,59,0.06);
+    }
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 1.8rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      color: var(--navy); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+      color: var(--text); background: var(--warm-white);
+      transition: border-color 0.25s;
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      width: 100%; padding: 0.95rem;
+      background: var(--navy); color: var(--warm-white);
+      border: none; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
+
+    .contact-info { padding-top: 1rem; }
+    .contact-info .section-title { margin-bottom: 1rem; }
+    .contact-info .section-sub { margin-bottom: 2.5rem; }
+    .info-item {
+      display: flex; gap: 1rem; align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--navy); color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .info-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+    .info-value { font-size: 0.95rem; color: var(--navy); font-weight: 500; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.5);
+      padding: 2.5rem 8vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      color: var(--warm-white); font-size: 1rem;
+    }
+    footer p { font-size: 0.8rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { height: 360px; }
+      .mosaic-tall { grid-row: span 1; }
+      #services, #work, #contact, #why { padding: 5rem 6vw; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      #why { grid-template-columns: 1fr; }
+      .why-img-wrap img { aspect-ratio: 16/9; }
+      #contact { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+      .gallery-item.tall { grid-row: span 1; }
+      .nav-links { display: none; }
+      .hero-left { padding: 4rem 6vw 3rem; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="LAST CHAT PHOTOT.png" alt="Humble Hands Pros Logo" />
+      <div>
+        <div class="nav-brand">Humble Hands Pros <span>Professional Cleaning</span></div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Our Work</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-badge">Serving Long Beach & Beyond</div>
+      <h1 class="hero-title">Clean Spaces.<br><em>Humble</em> People.<br>Pro Results.</h1>
+      <p class="hero-sub">We bring the same care and attention to your home that we'd want for our own. Thorough, reliable, and always delivered with a smile.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Book a Cleaning</a>
+        <a href="#work" class="btn-secondary">See Our Work</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Satisfaction</div>
+        </div>
+        <div>
+          <div class="stat-num">50<span>+</span></div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div>
+          <div class="stat-num">5<span>★</span></div>
+          <div class="stat-label">Rated Service</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="mosaic-img mosaic-tall" src="processed-E1693CEF-FF2A-417D-B414-436D013F1B3A.jpeg" alt="Window cleaning" />
+      <img class="mosaic-img" src="processed-3698C063-0C78-4348-8E81-3041B14B83CE.jpeg" alt="Shower cleaning" />
+      <img class="mosaic-img" src="processed-07087FA7-4211-457D-AB57-06F5DD0276AE.jpeg" alt="Carpet cleaning" />
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <span class="marquee-item">Window Cleaning</span>
+      <span class="marquee-item">Deep Cleaning</span>
+      <span class="marquee-item">Tile & Grout</span>
+      <span class="marquee-item">Carpet Cleaning</span>
+      <span class="marquee-item">Bathroom Detailing</span>
+      <span class="marquee-item">Move-In / Move-Out</span>
+      <span class="marquee-item">Recurring Cleans</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Window Cleaning</span>
+      <span class="marquee-item">Deep Cleaning</span>
+      <span class="marquee-item">Tile & Grout</span>
+      <span class="marquee-item">Carpet Cleaning</span>
+      <span class="marquee-item">Bathroom Detailing</span>
+      <span class="marquee-item">Move-In / Move-Out</span>
+      <span class="marquee-item">Recurring Cleans</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="reveal"><div class="section-label">What We Do</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Every Corner.<br>Every Detail.</h2></div>
+    <p class="section-sub reveal reveal-delay-2">From weekly maintenance to one-time deep cleans, we handle it all so you don't have to.</p>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-icon">🪟</span>
+        <div class="service-name">Window Cleaning</div>
+        <p class="service-desc">Interior and exterior windows cleaned streak-free, including frames, sills, and tracks.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🚿</span>
+        <div class="service-name">Bathroom Deep Clean</div>
+        <p class="service-desc">Tiles, grout, glass doors, fixtures — scrubbed and sanitized until they shine like new.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏠</span>
+        <div class="service-name">Full Home Cleaning</div>
+        <p class="service-desc">Top-to-bottom whole-home cleaning. Every room treated with the same dedication.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🧹</span>
+        <div class="service-name">Carpet Cleaning</div>
+        <p class="service-desc">Deep carpet cleaning to remove stains, odors, and allergens for a fresher living space.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📦</span>
+        <div class="service-name">Move-In / Move-Out</div>
+        <p class="service-desc">Thorough cleaning before or after a move so you start fresh or leave it spotless.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔄</span>
+        <div class="service-name">Recurring Maintenance</div>
+        <p class="service-desc">Weekly, bi-weekly, or monthly plans to keep your home consistently clean year-round.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="work">
+    <div class="reveal"><div class="section-label">Our Work</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Real Jobs.<br>Real Results.</h2></div>
+    <div class="gallery-grid reveal reveal-delay-2">
+      <div class="gallery-item tall">
+        <img src="processed-71DA673D-46C9-40BC-9910-59262D771672.jpeg" alt="Window cleaning exterior" />
+        <div class="gallery-overlay"><span>Exterior Window Clean</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="processed-FFEBC968-CAB9-45EE-BA22-8F607B265518.jpeg" alt="Shower tile cleaning" />
+        <div class="gallery-overlay"><span>Shower Detail</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="processed-A7AB95BD-E27B-47EB-B644-F077F62B15E5.jpeg" alt="Glass door cleaning" />
+        <div class="gallery-overlay"><span>Glass Door Polish</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="processed-3698C063-0C78-4348-8E81-3041B14B83CE.jpeg" alt="Bathroom deep clean" />
+        <div class="gallery-overlay"><span>Tile Deep Clean</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="processed-07087FA7-4211-457D-AB57-06F5DD0276AE.jpeg" alt="Carpet cleaning" />
+        <div class="gallery-overlay"><span>Carpet Cleaning</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="why-img-wrap reveal">
+      <img src="processed-E1693CEF-FF2A-417D-B414-436D013F1B3A.jpeg" alt="Cleaning professional at work" />
+      <div class="why-badge-float">
+        <span class="big-num">5★</span>
+        <span class="small-txt">Rated Service</span>
+      </div>
+    </div>
+    <div class="why-content">
+      <div class="reveal"><div class="section-label">Why Choose Us</div></div>
+      <div class="reveal reveal-delay-1"><h2 class="section-title">We Clean Like<br><em>It's Our Own.</em></h2></div>
+      <ul class="promise-list">
+        <li class="promise-item reveal reveal-delay-1">
+          <div class="promise-icon">🤝</div>
+          <div>
+            <div class="promise-title">Honest & Trustworthy</div>
+            <p class="promise-desc">We show up when we say we will, do what we promise, and treat your home with respect every single time.</p>
+          </div>
+        </li>
+        <li class="promise-item reveal reveal-delay-2">
+          <div class="promise-icon">✨</div>
+          <div>
+            <div class="promise-title">Detail-Obsessed</div>
+            <p class="promise-desc">We don't cut corners. Every surface, edge, and crevice gets the attention it deserves.</p>
+          </div>
+        </li>
+        <li class="promise-item reveal reveal-delay-3">
+          <div class="promise-icon">💬</div>
+          <div>
+            <div class="promise-title">Easy to Book & Communicate</div>
+            <p class="promise-desc">Simple scheduling, responsive communication, and flexible timing to fit your life.</p>
+          </div>
+        </li>
+        <li class="promise-item reveal">
+          <div class="promise-icon">💰</div>
+          <div>
+            <div class="promise-title">Transparent Pricing</div>
+            <p class="promise-desc">No hidden fees. You get a clear quote before we start so there are never any surprises.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="reveal"><div class="section-label">What Clients Say</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Words From<br>Happy Homes.</h2></div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"They did an incredible job on our bathrooms — the tile grout looks brand new. Super professional, on time, and worth every penny. We've already booked them again."</p>
+        <div class="testimonial-author">Maria T.</div>
+        <div class="testimonial-loc">Long Beach, CA</div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Our windows were a mess after months of rain. These guys left them spotless inside and out. Polite, hardworking, and really humble — exactly what the name says!"</p>
+        <div class="testimonial-author">James K.</div>
+        <div class="testimonial-loc">Lakewood, CA</div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Hired them for a move-out clean and my landlord was blown away. Got my full deposit back. Humble Hands Pros are the real deal — I recommend them to everyone."</p>
+        <div class="testimonial-author">Priya S.</div>
+        <div class="testimonial-loc">Signal Hill, CA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-info">
+      <div class="reveal"><div class="section-label">Get in Touch</div></div>
+      <div class="reveal reveal-delay-1"><h2 class="section-title">Ready for a<br>Cleaner Home?</h2></div>
+      <p class="section-sub reveal reveal-delay-2">Fill out the form and we'll get back to you within a few hours with a free quote. No obligation.</p>
+      <div class="info-item reveal reveal-delay-1">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">Service Area</div>
+          <div class="info-value">Long Beach, Lakewood, Signal Hill & surrounding areas</div>
+        </div>
+      </div>
+      <div class="info-item reveal reveal-delay-2">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-label">Phone / Text</div>
+          <div class="info-value">(562) 555-0100</div>
+        </div>
+      </div>
+      <div class="info-item reveal reveal-delay-3">
+        <div class="info-icon">✉️</div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-value">hello@humblehandspros.com</div>
+        </div>
+      </div>
+      <div class="info-item reveal">
+        <div class="info-icon">🕐</div>
+        <div>
+          <div class="info-label">Hours</div>
+          <div class="info-value">Mon – Sat: 8am – 6pm</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal reveal-delay-1">
+      <div class="form-title">Request a Free Quote</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="(562) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="you@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select>
+          <option value="">Select a service…</option>
+          <option>Window Cleaning</option>
+          <option>Bathroom Deep Clean</option>
+          <option>Full Home Cleaning</option>
+          <option>Carpet Cleaning</option>
+          <option>Move-In / Move-Out</option>
+          <option>Recurring Maintenance</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message (optional)</label>
+        <textarea placeholder="Tell us about your space or any specific needs…"></textarea>
+      </div>
+      <button class="btn-submit" onclick="handleSubmit(event)">Send My Request ✦</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Humble Hands Pros</div>
+    <p>© 2025 Humble Hands Pros. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#work">Our Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target;
+      btn.textContent = 'Message Sent! ✓';
+      btn.style.background = '#2d7a4f';
+      setTimeout(() => {
+        btn.textContent = 'Send My Request ✦';
+        btn.style.background = '';
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
