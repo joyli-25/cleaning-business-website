@@ -704,63 +704,68 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-info">
-      <div class="reveal"><div class="section-label">Get in Touch</div></div>
-      <div class="reveal reveal-delay-1"><h2 class="section-title">Ready for a<br>Cleaner Home?</h2></div>
-      <p class="section-sub reveal reveal-delay-2">Fill out the form and we'll get back to you within a few hours with a free quote. No obligation.</p>
-      <div class="info-item reveal reveal-delay-1">
-        <div class="info-icon">📍</div>
-        <div>
-          <div class="info-label">Service Area</div>
-          <div class="info-value">Long Beach, Lakewood, Signal Hill & surrounding areas</div>
-        </div>
-      </div>
-      <div class="info-item reveal reveal-delay-2">
-        <div class="info-icon">📞</div>
-        <div>
-          <div class="info-label">Phone / Text</div>
-          <div class="info-value">(562) 555-0100</div>
-        </div>
-      </div>
-      <div class="info-item reveal reveal-delay-3">
-        <div class="info-icon">✉️</div>
-        <div>
-          <div class="info-label">Email</div>
-          <div class="info-value">hello@humblehandspros.com</div>
-        </div>
-      </div>
-      <div class="info-item reveal">
-        <div class="info-icon">🕐</div>
-        <div>
-          <div class="info-label">Hours</div>
-          <div class="info-value">Mon – Sat: 8am – 6pm</div>
-        </div>
+<section id="contact">
+  <div class="contact-info">
+    <div class="reveal"><div class="section-label">Get in Touch</div></div>
+    <div class="reveal reveal-delay-1"><h2 class="section-title">Ready for a<br>Cleaner Home?</h2></div>
+    <p class="section-sub reveal reveal-delay-2">Fill out the form and we'll get back to you within a few hours with a free quote. No obligation.</p>
+    <div class="info-item reveal reveal-delay-1">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-label">Service Area</div>
+        <div class="info-value">Long Beach, Lakewood, Signal Hill & surrounding areas</div>
       </div>
     </div>
-    <div class="contact-form-wrap reveal reveal-delay-1">
-      <div class="form-title">Request a Free Quote</div>
+    <div class="info-item reveal reveal-delay-2">
+      <div class="info-icon">📞</div>
+      <div>
+        <div class="info-label">Phone / Text</div>
+        <div class="info-value">(562) 555-0100</div>
+      </div>
+    </div>
+    <div class="info-item reveal reveal-delay-3">
+      <div class="info-icon">✉️</div>
+      <div>
+        <div class="info-label">Email</div>
+        <div class="info-value">hello@humblehandspros.com</div>
+      </div>
+    </div>
+    <div class="info-item reveal">
+      <div class="info-icon">🕐</div>
+      <div>
+        <div class="info-label">Hours</div>
+        <div class="info-value">Mon – Sat: 8am – 6pm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap reveal reveal-delay-1">
+    <div class="form-title">Request a Free Quote</div>
+
+    <!-- ✅ FORM TAG ADDED with Formspree action -->
+    <form id="quote-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="Jane" />
+          <input type="text" name="first_name" placeholder="Jane" required />
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="Smith" />
+          <input type="text" name="last_name" placeholder="Smith" required />
         </div>
       </div>
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="tel" placeholder="(562) 000-0000" />
+        <input type="tel" name="phone" placeholder="(562) 000-0000" required />
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" placeholder="you@email.com" />
+        <input type="email" name="email" placeholder="you@email.com" required />
       </div>
       <div class="form-group">
         <label>Service Needed</label>
-        <select>
+        <select name="service" required>
           <option value="">Select a service…</option>
           <option>Window Cleaning</option>
           <option>Bathroom Deep Clean</option>
@@ -773,11 +778,17 @@
       </div>
       <div class="form-group">
         <label>Message (optional)</label>
-        <textarea placeholder="Tell us about your space or any specific needs…"></textarea>
+        <textarea name="message" placeholder="Tell us about your space or any specific needs…"></textarea>
       </div>
-      <button class="btn-submit" onclick="handleSubmit(event)">Send My Request ✦</button>
+      <button type="submit" class="btn-submit" id="submit-btn">Send My Request ✦</button>
+
+    </form>
+    <!-- Success message (hidden by default) -->
+    <div id="success-msg" style="display:none; text-align:center; padding: 2rem 0; color: #2d7a4f; font-weight: 600; font-size: 1rem;">
+      ✅ Message sent! We'll get back to you within a few hours.
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- FOOTER -->
   <footer>
@@ -807,16 +818,31 @@
     reveals.forEach(el => observer.observe(el));
 
     // Form handler
-    function handleSubmit(e) {
-      e.preventDefault();
-      const btn = e.target;
-      btn.textContent = 'Message Sent! ✓';
-      btn.style.background = '#2d7a4f';
-      setTimeout(() => {
-        btn.textContent = 'Send My Request ✦';
-        btn.style.background = '';
-      }, 3500);
-    }
+    // Formspree AJAX submission
+const form = document.getElementById('quote-form');
+const submitBtn = document.getElementById('submit-btn');
+const successMsg = document.getElementById('success-msg');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  submitBtn.textContent = 'Sending…';
+  submitBtn.disabled = true;
+
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+
+  if (response.ok) {
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+  } else {
+    submitBtn.textContent = 'Something went wrong. Try again.';
+    submitBtn.disabled = false;
+  }
+}
   </script>
 </body>
 </html>
